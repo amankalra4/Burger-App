@@ -6,8 +6,8 @@
     cursor: pointer;
     font: inherit;
     padding: 10px;
-    margin: 10px;
     font-weight: bold;
+    font-size: 20px;
 }
 
 .Button:first-of-type {
