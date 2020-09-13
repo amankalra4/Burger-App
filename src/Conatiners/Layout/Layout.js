@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styles from './Layout.module.css';
-import Toolbar from '../Navigation/Toolbar/Toolbar';
-import SideDrawer from '../Navigation/SideDrawer/SideDrawer';
+import Toolbar from '../../Components/Navigation/Toolbar/Toolbar';
+import SideDrawer from '../../Components/Navigation/SideDrawer/SideDrawer';
 
 class Layout extends Component {
 
@@ -31,17 +31,5 @@ class Layout extends Component {
         );
     }
 }
-
-// const Layout = (props) => {
-//     return (
-//         <React.Fragment>
-//             <Toolbar/>
-//             <SideDrawer/>
-//             <main className = {styles.Content}>
-//                 {props.children}
-//             </main>
-//         </React.Fragment>
-//     );
-// }
 
 export default Layout;

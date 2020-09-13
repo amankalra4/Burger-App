@@ -12,8 +12,8 @@ const SideDrawer = (props) => {
     return (
         <React.Fragment>
             <BackDrop show = {props.open} clicked = {props.closed}/>
-            {/* If you are passing a boolena value as true, then there is no need to write true explicitly
-            Here <BackDrop show/> means <BackDrop show = {true} /> */}
+            {/* If you are passing a boolean value as true, then there is no need to write true explicitly
+            Here if we write <BackDrop show/> it would mean <BackDrop show = {true} /> */}
             <div className = {attachedClassStyles.join(' ')}>
                 {/* <Logo height = '11%'/> */}
                 <div className ={styles.Logo}>
