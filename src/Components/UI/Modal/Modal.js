@@ -9,7 +9,7 @@ class Modal extends Component {
         // console.log('this.props: ', this.props.show);
         // console.log('heyyyyy', nextProps === this.props)
         // We  need the component to update only if the value of show change, so we keep the below condition
-        return nextProps.show !== this.props.show
+        return nextProps.show !== this.props.show || nextProps.children !== this.props.children;
     }
     
     render () {
