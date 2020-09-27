@@ -31,6 +31,7 @@ class BurgerBuilder extends Component {
     }
 
     componentDidMount() {
+        // console.log('aman111', this.props);
         axios.get('https://my-burger-db-c34c2.firebaseio.com/ingredients.json')
         .then(response => {
             this.setState({ingredients: response.data});
@@ -86,29 +87,20 @@ class BurgerBuilder extends Component {
 
     purchaseContinueHandler = () => {
         // alert('You can continue!');
-        this.setState({loading: true})
-        const order = {
-            ingredients: this.state.ingredients,
-            price: this.state.totalPrice,
-            customer: {
-                name: 'Aman',
-                address: {
-                    street: 'Jammu',
-                    zipCode: '1234',
-                    country: 'India'
-                },
-                email: 'test@test.com'
-            },
-            deliveryMethod: 'fastest'
+        // this.props.history.push('/checkout');
+        
+        const queryParams = [];
+        for(let ing in this.state.ingredients) {
+            queryParams.push(encodeURIComponent(ing) + "=" + encodeURIComponent(this.state.ingredients[ing]))
         }
-        axios.post('/orders.json', order)
-        .then((response) => {
-            // console.log(response);
-            this.setState({loading: false, purchasing: false});
-        })
-        .catch((error) => {
-            // console.log(error);
-            this.setState({loading: false, purchasing: false});
+        queryParams.push('price=' + this.state.totalPrice);
+        // console.log(queryParams); // ["bacon=0", "cheese=0", "meat=0", "salad=1"]
+        const queryString = queryParams.join('&');
+        // console.log(queryString); // bacon=0&cheese=0&meat=0&salad=1
+        // console.log(queryParams); // ["bacon=0", "cheese=0", "meat=0", "salad=1"]
+        this.props.history.push({
+            pathname: '/checkout',
+            search: '?' + queryString
         });
     }
 
