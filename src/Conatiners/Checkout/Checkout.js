@@ -15,10 +15,10 @@ class Checkout extends Component {
     }
 
     componentDidMount() {
-        console.log('before', this.props.location.search); // bacon=2&cheese=3&meat=4&salad=1
-        // let y = this.props.location.search;
-        // let x1 = decodeURIComponent(y);
-        // console.log('x is: ', x1)
+        // console.log('amannnnn', this.props)
+        // console.log('before', this.props.location.search); // bacon=2&cheese=3&meat=4&salad=1
+        
+        // console.log('x is: ', decodeURIComponent(this.props.location.search))
         const query = new URLSearchParams(this.props.location.search);
         const ingredients = {};
         let price = 0;
