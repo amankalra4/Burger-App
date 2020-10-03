@@ -18,16 +18,15 @@ class ContactData extends Component {
                 elementType: 'input', // name should be same as the HTML tag
                 elementConfig: { // elementConfig will have the attributes of the HTML tag defined above.
                     type: 'text',
-                    placeHolder: 'Your Name'
+                    placeholder: 'Your Name'
                 },
                 value: ''
-                 
             },
             street: {
                 elementType: 'input', // name should be same as the HTML tag
                 elementConfig: { // elementConfig will have the attributes of the HTML tag defined above.
                     type: 'text',
-                    placeHolder: 'Street'
+                    placeholder: 'Street'
                 },
                 value: ''
             },
@@ -35,7 +34,7 @@ class ContactData extends Component {
                 elementType: 'input', // name should be same as the HTML tag
                 elementConfig: { // elementConfig will have the attributes of the HTML tag defined above.
                     type: 'text',
-                    placeHolder: 'ZIP CODE'
+                    placeholder: 'ZIP CODE'
                 },
                 value: ''
             },
@@ -43,7 +42,7 @@ class ContactData extends Component {
                 elementType: 'input', // name should be same as the HTML tag
                 elementConfig: { // elementConfig will have the attributes of the HTML tag defined above.
                     type: 'text',
-                    placeHolder: 'Country'
+                    placeholder: 'Country'
                 },
                 value: ''
             },
@@ -51,7 +50,7 @@ class ContactData extends Component {
                 elementType: 'input', // name should be same as the HTML tag
                 elementConfig: { // elementConfig will have the attributes of the HTML tag defined above.
                     type: 'email',
-                    placeHolder: 'Your E-Mail'
+                    placeholder: 'Your E-Mail'
                 },
                 value: ''
             },
@@ -71,11 +70,15 @@ class ContactData extends Component {
 
     orderhandler = (event) => {
         event.preventDefault();
-        // console.log(this.props.ingredients);
-        this.setState({loading: true})
+        this.setState({loading: true});
+        const formData = {};
+        for(let formElementIdentifier in this.state.orderForm) {
+            formData[formElementIdentifier] = this.state.orderForm[formElementIdentifier].value
+        }
         const order = {
             ingredients: this.props.ingredients,
-            price: this.props.totalPrice,
+            price: this.props.price,
+            orderData: formData
             // customer: {
             //     name: 'Aman',
             //     address: {
@@ -99,14 +102,33 @@ class ContactData extends Component {
         });
     }
 
+    onInputChangeHandler = (event, inputIdentifier) => {
+        const updatedOrderForm = {...this.state.orderForm};
+        const updatedFormElement = {...updatedOrderForm[inputIdentifier]};
+        updatedFormElement.value = event.target.value;
+        updatedOrderForm[inputIdentifier] = updatedFormElement;
+        this.setState({orderForm: updatedOrderForm});
+    }
+
     render () {
+        const formElementsArray = [];
+        for (let key in this.state.orderForm) {
+            formElementsArray.push({
+                id: key,
+                config: this.state.orderForm[key]
+            })
+        }
         let form = (
-            <form>
-                <Input elementType = '...' elementConfig = '...' value = '...'/>
-                <Input inputtype = 'input' type = 'email' name = 'email' placeholder = 'Your Email' />
-                <Input inputtype = 'input' type = 'text' name = 'street' placeholder = 'Street' />
-                <Input inputtype = 'input' type = 'text' name = 'postal' placeholder = 'Postal Code' />
-                <Button btnType = 'Success' clicked = {this.orderhandler}>Order</Button>
+            <form onSubmit = {this.orderhandler}>
+                {formElementsArray.map(formElement => (
+                    <Input 
+                        key = {formElement.id}
+                        elementType = {formElement.config.elementType}
+                        elementConfig = {formElement.config.elementConfig}
+                        value = {formElement.config.value}
+                        changed = {(event) => this.onInputChangeHandler(event, formElement.id)}/>
+                ))}
+                <Button btnType = 'Success'>Order</Button>
             </form>
         );
         if(this.state.loading) {
