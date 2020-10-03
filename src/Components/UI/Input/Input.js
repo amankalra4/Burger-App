@@ -3,6 +3,11 @@ import styles from './Input.module.css'
 
 const Input = (props) => {
     let inputElement = null;
+    const inputClasses = [styles.InputElement];
+
+    if(props.inValid && props.shouldValidate && props.touched) {
+        inputClasses.push(styles.Invalid);
+    }
 
     // React does not recognize the `inputType` prop on a DOM element
     // from React 16 onwards we should always use inputtype not inputType
@@ -10,7 +15,7 @@ const Input = (props) => {
         case ('input'):
             // inputElement = <input className = {styles.InputElement} {...props} />;
             inputElement = <input 
-                                className = {styles.InputElement}
+                                className = {inputClasses.join(' ')}
                                 {...props.elementConfig}
                                 value = {props.value}
                                  onChange = {props.changed}/>;
@@ -18,7 +23,7 @@ const Input = (props) => {
         
         case ('textarea'):
             inputElement = <textarea 
-                                className = {styles.InputElement}
+                                className = {inputClasses.join(' ')}
                                 {...props.elementConfig}
                                 value = {props.value}
                                 onChange = {props.changed}/>;
@@ -27,7 +32,7 @@ const Input = (props) => {
         case ('select'):
             inputElement = (
                         <select 
-                            className = {styles.InputElement}
+                            className = {inputClasses.join(' ')}
                             value = {props.value}
                             onChange = {props.changed}>
                             {props.elementConfig.options.map(option => (
@@ -39,7 +44,7 @@ const Input = (props) => {
     
         default:
             inputElement = <input 
-                                className = {styles.InputElement}
+                                className = {inputClasses.join(' ')}
                                 {...props.elementConfig}
                                 value = {props.value}
                                 onChange = {props.changed}/>;

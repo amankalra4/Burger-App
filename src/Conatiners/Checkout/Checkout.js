@@ -65,7 +65,6 @@ class Checkout extends Component {
                     ingredients = {this.state.ingredients} 
                     checkoutCancelled = {this.checkoutCancelledHandler}
                     checkoutContinued = {this.checkoutContinuedHandler} />
-                {console.log('aman11', this.props.match.path)}
                 <Route 
                     path = {this.props.match.path + '/contact-data'} 
                     // component = {ContactData} />
